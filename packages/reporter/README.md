@@ -46,7 +46,7 @@ import { AutoReport } from 'dde-log-reporter';
   <div id="iframeContainer"></div>
 </body>
 
-<script src="//unpkg.com/dde-log-reporter"></script>
+<script src="http://unpkg.com/dde-log-reporter"></script>
 
 <script>
 // 创建初始化上报插件

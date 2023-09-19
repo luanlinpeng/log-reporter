@@ -11,17 +11,18 @@
 </html>
 
 
-<script src="../../packages/reporter/dist/index.global.js"></script>
+<script src="http://unpkg.com/dde-log-reporter"></script>
 
 <script>
 
+console.log('Reporter', Reporter);
 
 const reporter = new Reporter.AutoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
 
 setTimeout(()=>{
   
   reporter.updateUser('test')
-  
+
 } , 20 * 1000)
 
 
