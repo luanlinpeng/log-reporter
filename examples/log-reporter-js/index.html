@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+
+<script src="../../packages/reporter/dist/index.global.js"></script>
+
+<script>
+
+
+const reporter = new Reporter.autoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
+
+setTimeout(()=>{
+  
+  reporter.updateUser('test')
+
+} , 20 * 1000)
+
+
+
+</script>

@@ -1,0 +1,27 @@
+{
+  "name": "dde-log-reporter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "unpkg": "dist/index.global.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup --globalName Reporter --dts",
+    "dev": "tsup --watch --globalName Reporter --dts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
+    "@types/node": "^20.6.2",
+    "i": "^0.3.7",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^4.0.1",
+    "js-cookie": "^3.0.5",
+    "moment": "^2.29.4"
+  }
+}

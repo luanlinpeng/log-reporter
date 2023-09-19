@@ -1,0 +1,17 @@
+{
+  "name": "log-reporter",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.10.14"
+  }
+}
