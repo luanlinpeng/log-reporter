@@ -7,7 +7,7 @@ import moment from 'moment';
 
 
 
-export class autoReport {
+export class AutoReport {
   cookieIdval: any = null;
   interval: any = null;
   channel = '';

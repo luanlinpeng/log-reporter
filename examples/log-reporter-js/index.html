@@ -16,12 +16,12 @@
 <script>
 
 
-const reporter = new Reporter.autoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
+const reporter = new Reporter.AutoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
 
 setTimeout(()=>{
   
   reporter.updateUser('test')
-
+  
 } , 20 * 1000)
 
 
