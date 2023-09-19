@@ -1,6 +1,6 @@
 {
   "name": "dde-log-reporter",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -23,5 +23,9 @@
     "@fingerprintjs/fingerprintjs": "^4.0.1",
     "js-cookie": "^3.0.5",
     "moment": "^2.29.4"
-  }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }
