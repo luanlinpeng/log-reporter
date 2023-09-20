@@ -20,6 +20,8 @@ npm i dde-log-reporter
 
 ## 使用
 
+注：AutoReport只可创建一次，若全局使用可挂载到window对象或其他形式，若需重新创建必须先销毁。
+
 ```ts
 import { AutoReport } from 'dde-log-reporter';
 
