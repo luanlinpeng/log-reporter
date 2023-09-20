@@ -75,9 +75,11 @@ const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', 'authTk
 ### reporter初始化配置项
 
 ```ts
+注：创建时参数顺序需固定。
 type ReporterOptions = {
   channel: string;
   targetUrl: string;
+  authUrl: string;
   userID: string;
 };
 ```
