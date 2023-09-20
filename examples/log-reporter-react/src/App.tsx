@@ -6,8 +6,7 @@ function App() {
 
   useEffect(() => {
 
-    
-    window.reporter = new AutoReport('platform', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest');
+    window.reporter = new AutoReport('platform', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog/authToken', 'guest');
     
     setTimeout(()=>{
       console.log('user');

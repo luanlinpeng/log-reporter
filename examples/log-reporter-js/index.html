@@ -17,15 +17,20 @@
 
 console.log('Reporter', Reporter);
 
-window.reporter = new Reporter.AutoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
-
+window.reporter = new Reporter.AutoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog/authToken', 'guest')
 
 
 setTimeout(()=>{
   console.log('dddeeetest');
-  window.reporter.updateUser('test')
+  window.reporter.sendPageOpenEvent('testpage')
 
 } , 15 * 1000)
+
+setTimeout(()=>{
+  console.log('dddeeetest');
+  window.reporter.updateUser('testuser')
+
+} , 18 * 1000)
 
 
 
