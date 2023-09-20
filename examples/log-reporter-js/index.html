@@ -11,19 +11,21 @@
 </html>
 
 
-<script src="http://unpkg.com/dde-log-reporter"></script>
+<script src="../../packages/reporter/dist/index.global.js"></script>
 
 <script>
 
 console.log('Reporter', Reporter);
 
-const reporter = new Reporter.AutoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
+window.reporter = new Reporter.AutoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
+
+
 
 setTimeout(()=>{
-  
-  reporter.updateUser('test')
+  console.log('dddeeetest');
+  window.reporter.updateUser('test')
 
-} , 20 * 1000)
+} , 15 * 1000)
 
 
 

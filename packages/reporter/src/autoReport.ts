@@ -13,12 +13,13 @@ export class AutoReport {
   channel = '';
   targetUrl = '';
   userID = '';
-
+  preUrl = ''
 
   constructor(channel: string, targetUrl: string, userID: string) {
     this.channel = channel;
     this.targetUrl = targetUrl;
     this.userID = userID;
+    this.preUrl = document.referrer ? document.referrer : '直接访问';
     if (!getCookieId()) {
       const temp = nanooid();
       this.cookieIdval = temp;
@@ -40,8 +41,6 @@ export class AutoReport {
     this.loadTimeSend();
     setTimeout(() => {
       const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.fetchStart;
-      const referrer = document.referrer ? document.referrer : '直接访问';
-
       const obj = {
         userId: userID || 'guest',
         cookieId: getCookieId(),
@@ -49,7 +48,7 @@ export class AutoReport {
         lang: localStorage.getItem('locale') || 'en-US',
         url: window.location.href,
         uuid: localStorage.getItem('uuid'),
-        preUrl: referrer,
+        preUrl: document.referrer ? document.referrer : '直接访问',
         eventType: 'loadTime',
         channel,
         utlogMap: `{loading_time: ${loadTime}}`,
@@ -67,7 +66,8 @@ export class AutoReport {
   }
 
   loadTimeSend = () => {
-    this.interval = setInterval(() => {
+
+    this.interval = setInterval(() => {  
       if (isMinStatus()) {
         //是最小化
         return
@@ -79,7 +79,6 @@ export class AutoReport {
           return
         }
         //发送
-        const referrer = document.referrer ? document.referrer : '直接访问';
         const obj = {
           url: window.location.href,
           userId: this.userID || 'guest',
@@ -88,7 +87,7 @@ export class AutoReport {
           eventType: 'visitTime',
           clientType: newTerminalInfo(),
           lang: localStorage.getItem('locale') || 'en-US',
-          preUrl: localStorage.getItem('preUrl') ?? referrer,
+          preUrl: this.preUrl,
           channel: this.channel,
         }
         fetch(this.targetUrl, {
@@ -108,11 +107,64 @@ export class AutoReport {
     window.localStorage.setItem('beforeTime', time);
   }
 
-  updateUser = (newUserId: string) => {
+  updateUser (newUserId: string) {
     this.userID = newUserId;
-    clearInterval(this.interval);
-    this.loadTimeSend();
   }
+
+  updatePreUrl(preUrl: string) {
+    this.preUrl = preUrl;
+  }
+
+  sendClkEvent(functionId: string, utlogMap?: any) {
+    const obj: any = {
+      url: window.location.href,
+      userId: this.userID || 'guest',
+      uuid: localStorage.getItem('uuid'),
+      cookieId: getCookieId(),
+      eventType: 'clk',
+      clientType: newTerminalInfo(),
+      lang: localStorage.getItem('locale') || 'en-US',
+      preUrl: this.preUrl,
+      channel: this.channel,
+      functionId
+    }
+    if (utlogMap) {
+      obj.utlogMap =  JSON.stringify(utlogMap)
+    }
+    fetch(this.targetUrl, {
+      method: 'post',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+
+  }
+
+  sendPageOpenEvent(preUrl: string) {
+    this.updatePreUrl(preUrl);
+    const obj = {
+      userId: this.userID || 'guest',
+      cookieId: getCookieId(),
+      clientType: newTerminalInfo(),
+      lang: localStorage.getItem('locale') || 'en-US',
+      url: window.location.href,
+      uuid: localStorage.getItem('uuid'),
+      preUrl,
+      eventType: 'pageOpen',
+      channel: 'platform',
+    }
+    
+    fetch(this.targetUrl, {
+      method: 'post',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
 
   destroy() {
     clearInterval(this.interval); 

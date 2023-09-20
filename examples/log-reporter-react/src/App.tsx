@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { autoReport } from 'dde-log-reporter';
+import { AutoReport } from 'dde-log-reporter';
 
 
 function App() {
@@ -7,20 +7,37 @@ function App() {
   useEffect(() => {
 
     
-    const reporter = new autoReport('platform','http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest')
+    window.reporter = new AutoReport('platform', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'guest');
+    
+    setTimeout(()=>{
+      console.log('user');
+      window.reporter.updateUser('test')
+
+    }, 10 * 1000)
 
     setTimeout(()=>{
-      
-      reporter.updateUser('testreporter')
+      console.log('user');
+      window.reporter.sendPageOpenEvent('测试页面')
 
-    } , 20 * 1000)
+    } , 15 * 1000)
 
   }, [])
+
+
+  const handleClick = () => {
+    window.reporter.sendClkEvent('terst','ddere')
+  }
 
 
   return (
     <>
       <p className="read-the-docs">
+        <button onClick={handleClick}>ddde</button>
+        <button onClick={() => {
+                window.reporter.sendPageOpenEvent('testpage')
+
+        }}>page</button>
+
         Click on the Vite and React logos to learn more
       </p>
     </>

@@ -1,14 +1,13 @@
 # dde-log-report
 
-
 这是一个用于在dde(深时数字地球)中进行埋点上报基础内容的插件。
 在TypeScript环境下，可以免去查阅操作手册的麻烦。
 
 包含内容：
-  初始化页面加载时间、页面停留时间。
+  初始化页面加载时间、页面停留时间、页面打开上报、点击事件上报。
   数据使用：
-  浏览器指纹-uuid(后续clk上报可直接通过localStorage获取)、
-  sessionId(后续clk上报可直接通过cookies获取)。
+  浏览器指纹-uuid(后续如需使用可直接通过localStorage获取)、
+  sessionId(后续如需使用可直接通过cookies获取)。
 
 
 ## 安装
@@ -29,11 +28,14 @@ import { AutoReport } from 'dde-log-reporter';
 
   const reporter = new AutoReport('平台','XXXXXXX上报地址', '用户名')
 
-// 示例: 更新上报用户名
-
+// 示例: 更新上报用户名(用户登录或注销时调用)
   reporter.updateUser('用户名')
 
+//示例： 点击事件上报
+ reporter.sendClkEvent('functionId','携带参数(对象形式，不需携带额外信息可不传)')
 
+//示例：路由变化上报
+reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
 
 // 示例: 销毁实例
   reporter.destroy();
@@ -52,11 +54,17 @@ import { AutoReport } from 'dde-log-reporter';
 // 创建初始化上报插件
 const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', '用户名')
 
-// 示例: 更新上报用户名
-reporter.updateUser('用户名')
+// 示例: 更新上报用户名(用户登录或注销时调用)
+  reporter.updateUser('用户名')
+
+//示例： 点击事件上报
+ reporter.sendClkEvent('functionId','携带参数(对象形式，不需携带额外信息可不传)')
+
+//示例：路由变化上报
+  reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
 
 // 示例: 销毁实例
-reporter.destory();
+  reporter.destroy();
 
 </script>
 ```
