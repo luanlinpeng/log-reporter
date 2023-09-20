@@ -28,7 +28,7 @@ import { AutoReport } from 'dde-log-reporter';
 
 // 创建初始化上报插件
 
-  const reporter = new AutoReport('平台','XXXXXXX上报地址', '用户名')
+  const reporter = new AutoReport('平台','XXXXXXX上报地址', 'authTken验证地址', '用户名')
 
 // 示例: 更新上报用户名(用户登录或注销时调用)
   reporter.updateUser('用户名')
@@ -54,7 +54,7 @@ reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
 
 <script>
 // 创建初始化上报插件
-const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', '用户名')
+const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', 'authTken验证地址', '用户名')
 
 // 示例: 更新上报用户名(用户登录或注销时调用)
   reporter.updateUser('用户名')
