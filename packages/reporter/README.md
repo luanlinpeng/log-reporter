@@ -34,7 +34,9 @@ import { AutoReport } from 'dde-log-reporter';
   reporter.updateUser('用户名')
 
 //示例： 点击事件上报
- reporter.sendClkEvent('functionId','携带参数(对象形式，不需携带额外信息可不传)')
+ reporter.sendClkEvent('type', 'functionId', '携带参数(对象形式，不需携带额外信息可不传)')
+ 
+ type类型：'clk' | 'search' | 'download'
 
 //示例：路由变化上报
 reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
@@ -60,7 +62,9 @@ const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', 'authTk
   reporter.updateUser('用户名')
 
 //示例： 点击事件上报
- reporter.sendClkEvent('functionId','携带参数(对象形式，不需携带额外信息可不传)')
+ reporter.sendClkEvent('type', 'functionId', '携带参数(对象形式，不需携带额外信息可不传)')
+ 
+ type类型：'clk' | 'search' | 'download'
 
 //示例：路由变化上报
   reporter.sendPageOpenEvent('preUrl(路由变化之前url)')

@@ -10,7 +10,7 @@ function App() {
     
     setTimeout(()=>{
       console.log('user');
-      window.reporter.updateUser('test')
+      window.z.updateUser('test')
 
     }, 10 * 1000)
 
@@ -24,7 +24,7 @@ function App() {
 
 
   const handleClick = () => {
-    window.reporter.sendClkEvent('terst','ddere')
+    window.reporter.sendClkEvent('search', 'terst','ddere')
   }
 
 

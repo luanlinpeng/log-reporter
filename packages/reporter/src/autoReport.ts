@@ -146,13 +146,13 @@ export class AutoReport {
     this.preUrl = preUrl;
   }
 
-  sendClkEvent(functionId: string, utlogMap?: any) {
+  sendClkEvent(type: 'clk' | 'search' | 'download', functionId: string, utlogMap?: any) {
     const obj: any = {
       url: window.location.href,
       userId: this.userID || 'guest',
       uuid: localStorage.getItem('uuid'),
       cookieId: getCookieId(),
-      eventType: 'clk',
+      eventType: type,
       clientType: newTerminalInfo(),
       lang: localStorage.getItem('locale') || 'en-US',
       preUrl: this.preUrl,
