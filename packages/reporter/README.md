@@ -26,20 +26,38 @@ npm i dde-log-reporter
 import { AutoReport } from 'dde-log-reporter';
 
 
-// 创建初始化上报插件
+// 创建配置上报插件
 
-  const reporter = new AutoReport('平台','XXXXXXX上报地址', 'authTken验证地址', '用户名')
+const reporter = new AutoReport(channel,targetUrl , authUrl, userID)
+
+channel: string (平台)
+targetUrl: string (上报地址)
+authUrl: string (authTken验证地址)
+userID: string (登录用户的用户名,未登录可传guest)
+
+// reporter初始化
+reporter.init( initOkEvent )
+
+initOkEvent: () => void (在init结束后执行的回调函数，用于防止首次加载时init未完成就发送请求导致信息不全)
 
 // 示例: 更新上报用户名(用户登录或注销时调用)
-  reporter.updateUser('用户名')
+reporter.updateUser(userId)
+
+userId: string
 
 //示例： 点击事件上报
- reporter.sendClkEvent('type', 'functionId', '携带参数(对象形式，不需携带额外信息可不传)')
- 
- type类型：'clk' | 'search' | 'download'
+reporter.sendClkEvent(type, functionId,  utlogMap, sendOkEvent)
+
+type：'clk' | 'search' | 'download'
+functionId: string (上报的功能点Id)
+utlogMap: any{} (此次上报所携带参数,对象形式，不需携带额外信息可不传)
+sendOkEvent:  () => void (点击上报完成后要执行的回调函数,不需要可不传)
 
 //示例：路由变化上报
-reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
+reporter.sendPageOpenEvent(preUrl, sendOkEvent )
+
+preUrl: string (路由变化之前url)
+sendOkEvent:  () => void (上报完成后要执行的回调函数,不需要可不传)
 
 // 示例: 销毁实例
   reporter.destroy();
@@ -55,22 +73,40 @@ reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
 <script src="http://unpkg.com/dde-log-reporter"></script>
 
 <script>
-// 创建初始化上报插件
-const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', 'authTken验证地址', '用户名')
+// 创建配置上报插件
+const reporter = new AutoReport(channel,targetUrl , authUrl, userID)
+
+channel: string (平台)
+targetUrl: string (上报地址)
+authUrl: string (authTken验证地址)
+userID: string (登录用户的用户名,未登录可传guest)
+
+// reporter初始化
+reporter.init( initOkEvent )
+
+initOkEvent: () => void (在init结束后执行的回调函数，用于防止首次加载时init未完成就发送请求导致信息不全)
 
 // 示例: 更新上报用户名(用户登录或注销时调用)
-  reporter.updateUser('用户名')
+reporter.updateUser(userId)
+
+userId: string
 
 //示例： 点击事件上报
- reporter.sendClkEvent('type', 'functionId', '携带参数(对象形式，不需携带额外信息可不传)')
+reporter.sendClkEvent(type, functionId,  utlogMap, sendOkEvent)
  
- type类型：'clk' | 'search' | 'download'
+type：'clk' | 'search' | 'download'
+functionId: string (上报的功能点Id)
+utlogMap: any{} (此次上报所携带参数,对象形式，不需携带额外信息可不传)
+sendOkEvent:  () => void (点击上报完成后要执行的回调函数,不需要可不传)
 
 //示例：路由变化上报
-  reporter.sendPageOpenEvent('preUrl(路由变化之前url)')
+reporter.sendPageOpenEvent(preUrl, sendOkEvent )
+
+preUrl: string (路由变化之前url)
+sendOkEvent:  () => void (上报完成后要执行的回调函数,不需要可不传)
 
 // 示例: 销毁实例
-  reporter.destroy();
+reporter.destroy();
 
 </script>
 ```
@@ -79,7 +115,7 @@ const reporter = new Reporter.AutoReport('平台','XXXXXXX上报地址', 'authTk
 ### reporter初始化配置项
 
 ```ts
-注：创建时参数顺序需固定。
+注：所有参数顺序需固定。
 type ReporterOptions = {
   channel: string;
   targetUrl: string;

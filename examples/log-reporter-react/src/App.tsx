@@ -8,15 +8,23 @@ function App() {
 
     window.reporter = new AutoReport('platform', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog', 'http://log-analysis-dev.deep-time.org/ddeAnalytics/utlog/authToken', 'guest');
     
+    window.reporter.init(() => {
+      window.reporter.sendPageOpenEvent('open', () => {
+        console.log('dde1')
+       })
+     })
+
     setTimeout(()=>{
       console.log('user');
-      window.z.updateUser('test')
+      window.reporter.updateUser('test')
 
     }, 10 * 1000)
 
     setTimeout(()=>{
       console.log('user');
-      window.reporter.sendPageOpenEvent('测试页面')
+      window.reporter.sendPageOpenEvent('测试页面', () => {
+        console.log('dde2')
+       })
 
     } , 15 * 1000)
 
@@ -24,7 +32,7 @@ function App() {
 
 
   const handleClick = () => {
-    window.reporter.sendClkEvent('search', 'terst','ddere')
+    window.reporter.sendClkEvent('search', 'terst' )
   }
 
 

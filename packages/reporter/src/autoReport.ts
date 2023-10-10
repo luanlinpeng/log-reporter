@@ -16,7 +16,7 @@ export class AutoReport {
   authUrl = '';
   userID = '';
   preUrl = '';
-  authTken= ''
+  authTken = '';
 
   constructor(channel: string, targetUrl: string, authUrl: string, userID: string) {
     this.channel = channel;
@@ -24,10 +24,9 @@ export class AutoReport {
     this.userID = userID;
     this.authUrl = authUrl;
     this.preUrl = document.referrer ? document.referrer : '直接访问';
-    this.init();
   }
 
-  async init() {
+  async init( initOk?: any ) {
     if (!getCookieId()) {
       const temp = nanooid();
       this.cookieIdval = temp;
@@ -35,21 +34,19 @@ export class AutoReport {
     } else {
       this.cookieIdval = getCookieId();
     }
-    await this.authTokenSend();
+    const sendAuth = await this.authTokenSend();
+    console.log('sendAuth', sendAuth);
     this.authInterval = setInterval(() => {
       this.authTokenSend();
     }, 5 * 60 * 1000)
-
     const time = moment().format("YYYY-MM-DD HH:mm:ss")
     window.localStorage.setItem('beforeTime', time);
     document.addEventListener('click', this.setClickTime)
-
     if (!localStorage.getItem('uuid')) {
       await getFinger().then(id => {
         localStorage.setItem('uuid', id);
       })
     }
-
     this.loadTimeSend();
     setTimeout(() => {
       const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.fetchStart;
@@ -75,15 +72,14 @@ export class AutoReport {
       })
 
     }, 20 * 1000)
-
-
+    initOk?.();
   }
 
-  authTokenSend() {
+  async authTokenSend() {
     const obj = {
       channel: this.channel,
   }
-    fetch(this.authUrl, {
+    await fetch(this.authUrl, {
       method: 'post',
       body: JSON.stringify(obj),
       headers: {
@@ -146,7 +142,7 @@ export class AutoReport {
     this.preUrl = preUrl;
   }
 
-  sendClkEvent(type: 'clk' | 'search' | 'download', functionId: string, utlogMap?: any) {
+  sendClkEvent(type: 'clk' | 'search' | 'download', functionId: string, utlogMap?: any, sendOk?: any ) {
     const obj: any = {
       url: window.location.href,
       userId: this.userID || 'guest',
@@ -170,12 +166,14 @@ export class AutoReport {
         'dde-ananlytics-utlog-api-key': this.authTken
 
       }
+    }).then(res => {
+      sendOk?.();
     })
 
 
   }
 
-  sendPageOpenEvent(preUrl: string) {
+  sendPageOpenEvent(preUrl: string , sendOk?: any ) {
     this.updatePreUrl(preUrl);
     const obj = {
       userId: this.userID || 'guest',
@@ -196,6 +194,8 @@ export class AutoReport {
         'Content-Type': 'application/json',
         'dde-ananlytics-utlog-api-key': this.authTken
       }
+    }).then(res => {
+      sendOk?.();
     })
   }
 
