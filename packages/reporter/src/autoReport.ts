@@ -184,7 +184,7 @@ export class AutoReport {
       uuid: localStorage.getItem('uuid'),
       preUrl,
       eventType: 'pageOpen',
-      channel: 'platform',
+      channel: this.channel,
     }
     
     fetch(this.targetUrl, {
