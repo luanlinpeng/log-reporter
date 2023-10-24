@@ -60,7 +60,7 @@ export class AutoReport {
         preUrl: document.referrer ? document.referrer : '直接访问',
         eventType: 'loadTime',
         channel: this.channel,
-        utlogMap: `{loading_time: ${loadTime}}`,
+        utlogMap: JSON.stringify({loading_time: loadTime > 0 ? loadTime : 'loading time abnormal'}),
       }
       fetch(this.targetUrl, {
         method: 'post',
@@ -78,7 +78,7 @@ export class AutoReport {
   async authTokenSend() {
     const obj = {
       channel: this.channel,
-  }
+    }
     await fetch(this.authUrl, {
       method: 'post',
       body: JSON.stringify(obj),
